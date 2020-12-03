@@ -27,4 +27,4 @@
    public static ToastWindowManager makeText(Context context, View view, long duration)
 ```
 
-[效果如下](https://blog.csdn.net/qq_16592085/article/details/110561466)
+[点我查看效果](https://blog.csdn.net/qq_16592085/article/details/110561466)

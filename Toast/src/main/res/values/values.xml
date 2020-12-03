@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--dialog的默认动画-->
+    <style name="defToastAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/toast_def_anim_enter</item>
+        <item name="android:windowExitAnimation">@anim/toast_def_anim_exit</item>
+    </style>
+
+</resources>

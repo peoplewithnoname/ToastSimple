@@ -86,11 +86,12 @@ public class ToastWindowManager implements IToastWindowManager {
     }
 
     private void initCurrentContentView() {
-        removeView();
+        if (hasContent) removeView();
         if (contentViewIsDefault) {
             currentContentView = defaultContentView;
         } else {
             currentContentView = customContentView;
+            customContentView = null;
         }
     }
 

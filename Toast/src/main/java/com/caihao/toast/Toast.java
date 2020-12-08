@@ -20,7 +20,7 @@ public class Toast {
     }
 
     public static ToastWindowManager makeText(Context context, View view, long duration) {
-        return getToastManager().setContext(context).setText("").setDuration(duration).setNextContentView(view);
+        return getToastManager().setContext(context).setText("").setDuration(duration).setCustomContentView(view);
     }
 
     private static ToastWindowManager getToastManager() {

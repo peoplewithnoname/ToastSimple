@@ -19,12 +19,15 @@ public class ToastWindowManager implements IToastWindowManager {
 
     private WindowManager.LayoutParams layoutParams;
 
-    private boolean hasContent = false;
-    private boolean contentViewIsDefault = false;
+    private boolean hasContent = false;//当前toast是否处于显示状态
 
-    private View contentView = null;
+    private boolean contentViewIsDefault = false;//判断当前是不是使用的默认的View
 
-    private View nextContentView = null;//下一个View
+    private View currentContentView = null;//当前正在使用的View 可能是默认的View也可能是自定义的View
+
+    private View defaultContentView = null;//默认的View
+
+    private View customContentView = null;//自定义的View
 
     private String text;
 
@@ -56,40 +59,54 @@ public class ToastWindowManager implements IToastWindowManager {
         return this;
     }
 
-    public ToastWindowManager setNextContentView(View contentView) {
-        this.nextContentView = contentView;
-        tvMsg = null;
+    /**
+     * 设置自定义的View
+     *
+     * @param contentView
+     * @return
+     */
+    public ToastWindowManager setCustomContentView(View contentView) {
         contentViewIsDefault = false;
+        this.customContentView = contentView;
+        tvMsg = null;
         return this;
     }
 
+    /**
+     * 设置默认的View
+     *
+     * @return
+     */
     public ToastWindowManager setDefaultContentView() {
-        if (contentViewIsDefault) return this;
-        nextContentView = LayoutParamsManager.createDefaultContentView(context);
-        tvMsg = nextContentView.findViewById(R.id.tvMsg);
         contentViewIsDefault = true;
+        if (defaultContentView == null)
+            defaultContentView = LayoutParamsManager.createDefaultContentView(context);
+        tvMsg = defaultContentView.findViewById(R.id.tvMsg);
         return this;
+    }
+
+    private void initCurrentContentView() {
+        removeView();
+        if (contentViewIsDefault) {
+            currentContentView = defaultContentView;
+        } else {
+            currentContentView = customContentView;
+        }
+    }
+
+    private void initLayoutParams() {
+        if (layoutParams == null)
+            layoutParams = LayoutParamsManager.createLayoutParams(this.context);
+        LayoutParamsManager.setWindowType(context, layoutParams);
     }
 
     @Override
     public void addView() {
-        if (layoutParams == null)
-            layoutParams = LayoutParamsManager.createLayoutParams(this.context);
-        LayoutParamsManager.setWindowType(context, layoutParams);
-        if (nextContentView != null) {
-            if (hasContent) removeView();
-            contentView = nextContentView;
-            nextContentView = null;
-        }
-        if (hasContent) {
-            hasContent = true;
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.updateViewLayout(contentView, layoutParams);
-        } else {
-            hasContent = true;
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.addView(contentView, layoutParams);
-        }
+        initLayoutParams();
+        initCurrentContentView();
+        hasContent = true;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.addView(currentContentView, layoutParams);
         if (tvMsg != null) tvMsg.setText(this.text);
         runCallbackForRemove();
     }
@@ -97,9 +114,10 @@ public class ToastWindowManager implements IToastWindowManager {
     @Override
     public void removeView() {
         hasContent = false;
+        if (currentContentView == null) return;
         if (tvMsg != null) tvMsg.setText("");
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        windowManager.removeView(contentView);
+        windowManager.removeView(currentContentView);
     }
 
     @Override

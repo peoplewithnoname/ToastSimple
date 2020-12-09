@@ -19,7 +19,22 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.btnShowToast).setOnClickListener(view -> {
             i++;
-            Toast.makeText(MainActivity.this, i + " 自定义的Toast", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, i + " 自定义的普通Toast", Toast.LENGTH_LONG).showMessage();
+        });
+
+        findViewById(R.id.btnShowWarmToast).setOnClickListener(view -> {
+            i++;
+            Toast.makeText(MainActivity.this, i + " 自定义的警告Toast", Toast.LENGTH_LONG).showWarm();
+        });
+
+        findViewById(R.id.btnShowErrorToast).setOnClickListener(view -> {
+            i++;
+            Toast.makeText(MainActivity.this, i + " 自定义的错误Toast", Toast.LENGTH_LONG).showError();
+        });
+
+        findViewById(R.id.btnShowSuccessToast).setOnClickListener(view -> {
+            i++;
+            Toast.makeText(MainActivity.this, i + " 自定义的成功Toast", Toast.LENGTH_LONG).showSuccess();
         });
     }
 }

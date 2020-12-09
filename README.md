@@ -22,7 +22,11 @@
 ### 3.直接在调用如下方法即可
 
 ```
-   public static ToastWindowManager makeText(Context context, String text, long duration)
+   private int i = 0;
+   Toast.makeText(MainActivity.this, i + " 自定义的普通Toast", Toast.LENGTH_LONG).showMessage();
+   Toast.makeText(MainActivity.this, i + " 自定义的警告Toast", Toast.LENGTH_LONG).showWarm();
+   Toast.makeText(MainActivity.this, i + " 自定义的错误Toast", Toast.LENGTH_LONG).showError();
+   Toast.makeText(MainActivity.this, i + " 自定义的成功Toast", Toast.LENGTH_LONG).showSuccess();
 
 ```
 ## 1.0.1 开始去掉自定义View的Toast

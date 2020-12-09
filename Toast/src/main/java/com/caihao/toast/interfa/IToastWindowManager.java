@@ -6,6 +6,12 @@ public interface IToastWindowManager {
 
     void removeView();
 
-    void show();
+    void showMessage();
+
+    void showWarm();
+
+    void showError();
+
+    void showSuccess();
 
 }

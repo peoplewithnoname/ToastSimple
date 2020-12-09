@@ -133,10 +133,10 @@ public class ToastWindowManager implements IToastWindowManager {
     }
 
     private void setContent() {
-        if (flag == 0) ivTip.setImageResource(R.drawable.img_toast_tip);
-        else if (flag == 1) ivTip.setImageResource(R.drawable.img_toast_warm);
-        else if (flag == 2) ivTip.setImageResource(R.drawable.img_toast_error);
-        else if (flag == 3) ivTip.setImageResource(R.drawable.img_toast_success);
+        if (flag == 0) ivTip.setImageResource(Toast.toast_normal_id);
+        else if (flag == 1) ivTip.setImageResource(Toast.toast_warm_id);
+        else if (flag == 2) ivTip.setImageResource(Toast.toast_error_id);
+        else if (flag == 3) ivTip.setImageResource(Toast.toast_success_id);
         if (tvMsg != null) tvMsg.setText(this.text);
     }
 

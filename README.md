@@ -15,16 +15,16 @@
 
 ```
 	dependencies {
-	        implementation 'com.github.peoplewithnoname:ToastSimple:1.0.0'
+	        implementation 'com.github.peoplewithnoname:ToastSimple:1.0.1'
 	}
 ```
 
-### 3.直接在调用如下两个方法即可
+### 3.直接在调用如下方法即可
 
 ```
    public static ToastWindowManager makeText(Context context, String text, long duration)
 
-   public static ToastWindowManager makeText(Context context, View view, long duration)
 ```
+## 1.0.1 开始去掉自定义View的Toast
 
 [点我查看效果](https://blog.csdn.net/qq_16592085/article/details/110561466)

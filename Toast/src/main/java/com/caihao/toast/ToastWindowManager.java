@@ -21,13 +21,7 @@ public class ToastWindowManager implements IToastWindowManager {
 
     private boolean hasContent = false;//当前toast是否处于显示状态
 
-    private boolean contentViewIsDefault = false;//判断当前是不是使用的默认的View
-
     private View currentContentView = null;//当前正在使用的View 可能是默认的View也可能是自定义的View
-
-    private View defaultContentView = null;//默认的View
-
-    private View customContentView = null;//自定义的View
 
     private String text;
 
@@ -59,52 +53,20 @@ public class ToastWindowManager implements IToastWindowManager {
         return this;
     }
 
-    /**
-     * 设置自定义的View
-     *
-     * @param contentView
-     * @return
-     */
-    public ToastWindowManager setCustomContentView(View contentView) {
-        contentViewIsDefault = false;
-        this.customContentView = contentView;
-        tvMsg = null;
-        return this;
-    }
-
-    /**
-     * 设置默认的View
-     *
-     * @return
-     */
-    public ToastWindowManager setDefaultContentView() {
-        contentViewIsDefault = true;
-        if (defaultContentView == null)
-            defaultContentView = LayoutParamsManager.createDefaultContentView(context);
-        tvMsg = defaultContentView.findViewById(R.id.tvMsg);
-        return this;
-    }
-
-    private void initCurrentContentView() {
-        if (hasContent) removeView();
-        if (contentViewIsDefault) {
-            currentContentView = defaultContentView;
-        } else {
-            currentContentView = customContentView;
-            customContentView = null;
-        }
-    }
-
     private void initLayoutParams() {
         if (layoutParams == null)
             layoutParams = LayoutParamsManager.createLayoutParams(this.context);
         LayoutParamsManager.setWindowType(context, layoutParams);
+        if (currentContentView == null) {
+            currentContentView = LayoutParamsManager.createDefaultContentView(context);
+            tvMsg = currentContentView.findViewById(R.id.tvMsg);
+        }
     }
 
     @Override
     public void addView() {
         initLayoutParams();
-        initCurrentContentView();
+        if (hasContent) removeView();
         hasContent = true;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.addView(currentContentView, layoutParams);

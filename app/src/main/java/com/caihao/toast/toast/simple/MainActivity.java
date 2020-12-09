@@ -17,24 +17,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btnShowToast).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                i++;
-                Toast.makeText(MainActivity.this, i + " 自定义的Toast", Toast.LENGTH_LONG).show();
-            }
+        findViewById(R.id.btnShowToast).setOnClickListener(view -> {
+            i++;
+            Toast.makeText(MainActivity.this, i + " 自定义的Toast", Toast.LENGTH_LONG).show();
         });
-
-        findViewById(R.id.btnShowToast2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                i++;
-                View rootView = getLayoutInflater().inflate(R.layout.layout_cus_toast, null);
-                TextView tvMsg = rootView.findViewById(R.id.tvShowMsg);
-                tvMsg.setText(String.valueOf(i));
-                Toast.makeText(MainActivity.this, rootView, Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 }

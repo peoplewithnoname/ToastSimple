@@ -1,6 +1,5 @@
 package com.caihao.toast;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
@@ -86,8 +85,8 @@ public class ToastWindowManager implements IToastWindowManager {
     private void show() {
         LayoutParamsManager.setWindowType(context, layoutParams);
         if (hasContent) removeView();
-        addView();
         setContent();
+        addView();
         runCallbackForRemove();
     }
 
@@ -134,10 +133,10 @@ public class ToastWindowManager implements IToastWindowManager {
     }
 
     private void setContent() {
-        if (flag == 0) if (ivTip != null) ivTip.setImageResource(R.drawable.img_toast_tip);
-        else if (flag == 1) if (ivTip != null) ivTip.setImageResource(R.drawable.img_toast_warm);
-        else if (flag == 2) if (ivTip != null) ivTip.setImageResource(R.drawable.img_toast_error);
-        else if (flag == 3) if (ivTip != null) ivTip.setImageResource(R.drawable.img_toast_success);
+        if (flag == 0) ivTip.setImageResource(R.drawable.img_toast_tip);
+        else if (flag == 1) ivTip.setImageResource(R.drawable.img_toast_warm);
+        else if (flag == 2) ivTip.setImageResource(R.drawable.img_toast_error);
+        else if (flag == 3) ivTip.setImageResource(R.drawable.img_toast_success);
         if (tvMsg != null) tvMsg.setText(this.text);
     }
 

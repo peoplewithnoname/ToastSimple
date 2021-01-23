@@ -1,7 +1,7 @@
 # ToastSimple
 ## 使用简单 操作方便
 
-### 注：本Toast基于Activity的   所以无法跨Activity显示  但是通过自定义的封装是可以做到这一点的
+### 注：本Toast基于Activity的   所以无法跨Activity显示
 
 #### 1.在最外层的 build.gradle 里面添加如下代码
 

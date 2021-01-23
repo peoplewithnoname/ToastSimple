@@ -1,5 +1,6 @@
 package com.caihao.toast.interfa;
 
+
 public interface IToastWindowManager {
 
     void addView();

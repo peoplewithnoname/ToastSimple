@@ -36,11 +36,4 @@
         android:layout_margin="16dp"
         android:text="点击显示成功Toast" />
 
-    <Button
-        android:id="@+id/btnSkipToTest"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:text="跳转到Test" />
-
 </LinearLayout>

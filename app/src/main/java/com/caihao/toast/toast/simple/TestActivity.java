@@ -1,13 +1,12 @@
 package com.caihao.toast.toast.simple;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.caihao.toast.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
 
     private int i = 0;
 
@@ -16,11 +15,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test);
 
         toast = new Toast(this, getLifecycle());
 
-//        toast.init(R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+        toast.init(R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
 
         findViewById(R.id.btnShowToast).setOnClickListener(view -> {
             i++;
@@ -41,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
             i++;
             toast.makeText(i + " 自定义的成功Toast", Toast.LENGTH_LONG).showSuccess();
         });
-
-        findViewById(R.id.btnSkipToTest).setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, TestActivity.class);
-            startActivity(intent);
-        });
     }
+
 }

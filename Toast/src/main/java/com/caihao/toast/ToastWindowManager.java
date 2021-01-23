@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caihao.toast.interfa.IToastWindowManager;
+import com.caihao.toast.utils.ToastSharedPreferencesUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +25,9 @@ public class ToastWindowManager implements IToastWindowManager {
 
     private View currentContentView = null;//当前正在使用的View 可能是默认的View也可能是自定义的View
 
-    private String text;
+    private int flag = 0;//0 普通  1 警告  2 错误  3 成功
+
+    private String text;//显示的字符串
 
     private long duration;
 
@@ -34,12 +37,12 @@ public class ToastWindowManager implements IToastWindowManager {
 
     private long endTimeStamp = 0;// 0普通 1警告 2错误 3成功
 
-    private int flag = 0;
-
     private Timer timer;
 
-    public ToastWindowManager() {
+    private ToastSharedPreferencesUtils sharedPreferencesUtils;
 
+    public ToastWindowManager(ToastSharedPreferencesUtils sharedPreferencesUtils) {
+        this.sharedPreferencesUtils = sharedPreferencesUtils;
     }
 
     private void initData() {
@@ -47,8 +50,8 @@ public class ToastWindowManager implements IToastWindowManager {
             layoutParams = LayoutParamsManager.createLayoutParams(this.context);
         if (currentContentView == null)
             currentContentView = LayoutParamsManager.createDefaultContentView(context);
-        tvMsg = currentContentView.findViewById(R.id.tvMsg);
-        ivTip = currentContentView.findViewById(R.id.ivTip);
+        if (tvMsg == null) tvMsg = currentContentView.findViewById(R.id.tvMsg);
+        if (ivTip == null) ivTip = currentContentView.findViewById(R.id.ivTip);
     }
 
     public ToastWindowManager setContext(Context context) {
@@ -70,6 +73,7 @@ public class ToastWindowManager implements IToastWindowManager {
 
     @Override
     public void addView() {
+        if (hasContent) return;
         hasContent = true;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.addView(currentContentView, layoutParams);
@@ -77,6 +81,7 @@ public class ToastWindowManager implements IToastWindowManager {
 
     @Override
     public void removeView() {
+        if (!hasContent) return;
         hasContent = false;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.removeView(currentContentView);
@@ -133,10 +138,10 @@ public class ToastWindowManager implements IToastWindowManager {
     }
 
     private void setContent() {
-        if (flag == 0) ivTip.setImageResource(Toast.toast_normal_id);
-        else if (flag == 1) ivTip.setImageResource(Toast.toast_warm_id);
-        else if (flag == 2) ivTip.setImageResource(Toast.toast_error_id);
-        else if (flag == 3) ivTip.setImageResource(Toast.toast_success_id);
+        if (flag == 0) ivTip.setImageResource(sharedPreferencesUtils.getToastNormalId());
+        else if (flag == 1) ivTip.setImageResource(sharedPreferencesUtils.getToastWarmId());
+        else if (flag == 2) ivTip.setImageResource(sharedPreferencesUtils.getToastErrorId());
+        else if (flag == 3) ivTip.setImageResource(sharedPreferencesUtils.getToastSuccessId());
         if (tvMsg != null) tvMsg.setText(this.text);
     }
 

@@ -17,7 +17,7 @@
 
 ```
 	dependencies {
-	        implementation 'com.github.peoplewithnoname:ToastSimple:1.0.3'
+	        implementation 'com.github.peoplewithnoname:ToastSimple:1.0.4'
 	}
 ```
 
